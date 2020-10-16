@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "952078803390",
+    "firebase_url": "https://waffle-ade59.firebaseio.com",
+    "project_id": "waffle-ade59",
+    "storage_bucket": "waffle-ade59.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:952078803390:android:5e9d4d6b923620460a59ef",
+        "android_client_info": {
+          "package_name": "com.bcit.comp3717.waffle"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "952078803390-c3clgqqnqe14et3peev99iomkfsf13jk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCkKuM3oYRl96WpDwIuRto9D0LSprw7V-A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "952078803390-c3clgqqnqe14et3peev99iomkfsf13jk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
