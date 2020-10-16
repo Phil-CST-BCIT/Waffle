@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Waffle</string>
+    <string name="cust_page">Customer Information</string>
+    <string name="num_in_the_queue"># in the queue</string>
+    <string name="update_btn">Update</string>
+    <string name="delete_btn">Delete</string>
 </resources>
