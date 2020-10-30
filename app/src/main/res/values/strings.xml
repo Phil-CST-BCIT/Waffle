@@ -15,4 +15,5 @@
     <string name="Phone">Phone: </string>
     <string name="Email_sign_in">EMAIL Sign in</string>
     <string name="title_activity_email_login">EmailLoginActivity</string>
+
 </resources>
