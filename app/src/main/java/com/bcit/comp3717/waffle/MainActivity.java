@@ -146,6 +146,4 @@ public class MainActivity extends AppCompatActivity {
     }
     // [END auth_fui_result]
 
-
-
 }
