@@ -13,6 +13,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         >
+        <meta-data
+            android:name="com.google.android.gms.vision.DEPENDENCIES"
+            android:value="barcode" />
+        
         <activity android:name=".DatabaseConnection"></activity>
         <activity android:name=".SuccessCustomerLoggedIn" />
         <activity android:name=".MainActivity">
