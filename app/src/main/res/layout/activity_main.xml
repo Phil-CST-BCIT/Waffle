@@ -16,6 +16,21 @@
       android:textSize="@dimen/home_title_size"
       android:textStyle="normal"
       android:gravity="center"/>
+
+
+  <SurfaceView
+      android:id="@+id/scanner"
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/scanner_height"
+      android:layout_marginTop="@dimen/scanner_margin_top"
+      />
+
+  <TextView
+      android:id="@+id/textViewAfterScanText"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_margin="@dimen/tv_result_margin"
+      android:text="" />
 </LinearLayout>
 
 
