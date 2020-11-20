@@ -62,5 +62,9 @@ dependencies {
     //Google play services dependency for using camera
     implementation 'com.google.android.gms:play-services-vision:20.1.2'
 
+    //ml dependency -- bundled version
+    implementation 'com.google.mlkit:barcode-scanning:16.0.3'
+
+
 
 }

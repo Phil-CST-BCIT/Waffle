@@ -25,6 +25,7 @@
       android:layout_marginTop="@dimen/scanner_margin_top"
       />
 
+
   <TextView
       android:id="@+id/textViewAfterScanText"
       android:layout_width="match_parent"
