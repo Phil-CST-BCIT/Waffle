@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Waffle</string>
+    <string name="home">Home Page</string>
+
     <string name="hintFirstName">First Name</string>
     <string name="hintLastName">Last Name</string>
     <string name="hintUserName">User Name</string>
