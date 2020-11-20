@@ -2,28 +2,49 @@ package com.bcit.comp3717.waffle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
+// import com.bcit.comp3717.waffle.ui.login.EmailLoginActivity;
+import com.firebase.ui.auth.AuthUI;
+import com.firebase.ui.auth.IdpResponse;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 
 public class MainActivity extends AppCompatActivity {
 
-    EditText editTextFirstName;
-    EditText editTextLastName;
-    EditText editTextUserName;
-    EditText editTextPhoneNumber;
-    Button buttonAddCustomer;
+    private static final String TAG = "GoogleActivity";
+    private static final int RC_SIGN_IN = 0;
 
-    DatabaseReference databaseCustomer;
+    SignInButton btnsignin;
+
+    // [START declare_auth]
+    private FirebaseAuth mAuth;
+    // [END declare_auth]
+
+//    private GoogleSignInClient mGoogleSignInClient;
 
 
     @Override
@@ -31,75 +52,99 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        databaseCustomer = FirebaseDatabase.getInstance().getReference("customers");
+        btnsignin = findViewById(R.id.sign_in_button);
 
-        editTextFirstName = findViewById(R.id.editTextFirstName);
-        editTextLastName = findViewById(R.id.editTextLastName);
-        editTextUserName = findViewById(R.id.editTextUserName);
-        editTextPhoneNumber = findViewById(R.id.editTextPhoneNumber);
-        buttonAddCustomer = findViewById(R.id.buttonAddCustomer);
 
-        buttonAddCustomer.setOnClickListener(new View.OnClickListener() {
+
+        btnsignin.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                addCustomer();
+                switch (v.getId()) {
+                    case R.id.sign_in_button:
+                        checkCurrentUser();
+                        break;
+                    // ...
+                }
             }
         });
+
+
+        // [START initialize_auth]
+        // Initialize Firebase Auth
+        mAuth = FirebaseAuth.getInstance();
+        // [END initialize_auth]
+
+
+
+
     }
 
-    private void addCustomer() {
-        String firstName = editTextFirstName.getText().toString().trim();
-        String lastName = editTextLastName.getText().toString().trim();
-        String userName = editTextUserName.getText().toString().trim();
-        String phoneNumber = editTextPhoneNumber.getText().toString().trim();
-
-
-        if (TextUtils.isEmpty(firstName)) {
-            Toast.makeText(this, "You must enter a first name.", Toast.LENGTH_LONG).show();
-            return;
+    public void checkCurrentUser() {
+        // [START check_current_user]
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            // User is signed in
+            Intent i = new Intent(MainActivity.this, SuccessCustomerLoggedIn.class);
+            startActivity(i);
+        } else {
+            // No user is signed in
+            createSignInIntent();
         }
+        // [END check_current_user]
+    }
 
-        if (TextUtils.isEmpty(lastName)) {
-            Toast.makeText(this, "You must enter a last name.", Toast.LENGTH_LONG).show();
-            return;
-        }
 
-        if (TextUtils.isEmpty(userName)) {
-            Toast.makeText(this, "You must enter a user name.", Toast.LENGTH_LONG).show();
-            return;
-        }
 
-        if (TextUtils.isEmpty(phoneNumber)) {
-            Toast.makeText(this, "You must enter a phone number.", Toast.LENGTH_LONG).show();
-            return;
-        }
+    @Override
+    protected void onStart() {
+        super.onStart();
 
-        // ask firebase to return a key
-        String id = databaseCustomer.push().getKey();
-        Customer cst = new Customer(id, firstName, lastName, userName, phoneNumber);
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+    }
 
-        Task setValueTask = databaseCustomer.child(id).setValue(cst);
+    public void createSignInIntent() {
+        // [START auth_fui_create_intent]
+        List<AuthUI.IdpConfig> providers = Arrays.asList(
+                new AuthUI.IdpConfig.EmailBuilder().build(),
+                new AuthUI.IdpConfig.GoogleBuilder().build());
 
-        setValueTask.addOnSuccessListener(new OnSuccessListener() {
-            @Override
-            public void onSuccess(Object o) {
-                Toast.makeText(MainActivity.this,"customer added.",Toast.LENGTH_LONG).show();
+        // Create and launch sign-in intent
+        startActivityForResult(
+                AuthUI.getInstance()
+                        .createSignInIntentBuilder()
+                        .setAvailableProviders(providers)
+                        .build(),
+                RC_SIGN_IN);
 
-                editTextFirstName.setText("");
-                editTextLastName.setText("");
-                editTextUserName.setText("");
-                editTextPhoneNumber.setText("");
+        // [END auth_fui_create_intent]
+    }
 
+    // [START auth_fui_result]
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == RC_SIGN_IN) {
+            IdpResponse response = IdpResponse.fromResultIntent(data);
+
+            if (resultCode == RESULT_OK) {
+                // Successfully signed in
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                Intent i = new Intent(MainActivity.this, SuccessCustomerLoggedIn.class);
+                startActivity(i);
+                // ...
+            } else {
+                // Sign in failed. If response is null the user canceled the
+                // sign-in flow using the back button. Otherwise check
+                // response.getError().getErrorCode() and handle the error.
+                Toast.makeText(MainActivity.this, "something went wrong.\n" + response.getError().getErrorCode(),
+                        Toast.LENGTH_LONG).show();
+                // ...
             }
-        });
-
-        setValueTask.addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(MainActivity.this,
-                        "something went wrong.\n" + e.toString(),
-                        Toast.LENGTH_SHORT).show();
-            }
-        });
+        }
     }
 }
+    // [END auth_fui_result]
+
+
