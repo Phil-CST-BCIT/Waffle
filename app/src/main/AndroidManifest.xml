@@ -3,7 +3,6 @@
     package="com.bcit.comp3717.waffle">
 <!-- add permissions for using camera and internet -->
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
