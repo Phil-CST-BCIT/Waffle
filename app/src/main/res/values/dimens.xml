@@ -4,8 +4,8 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="home_title_size">40sp</dimen>
     <dimen name="home_title_margin">40dp</dimen>
-    <dimen name="scanner_height">300dp</dimen>
-    <dimen name="scanner_margin_top">100dp</dimen>
+    <dimen name="scanner_height">400dp</dimen>
+    <dimen name="scanner_margin_top">10dp</dimen>
     <dimen name="tv_result_margin">5dp</dimen>
 
 
