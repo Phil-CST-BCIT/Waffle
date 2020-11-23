@@ -3,19 +3,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-
 import android.Manifest;
-import android.app.Activity;
 import android.content.pm.PackageManager;
-import android.graphics.Camera;
-import android.media.ToneGenerator;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.SurfaceView;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.budiyev.android.codescanner.AutoFocusMode;
 import com.budiyev.android.codescanner.CodeScanner;
 import com.budiyev.android.codescanner.CodeScannerView;
@@ -24,17 +18,19 @@ import com.budiyev.android.codescanner.ErrorCallback;
 import com.budiyev.android.codescanner.ScanMode;
 import com.google.zxing.Result;
 
-import java.lang.reflect.Array;
-import java.text.Format;
-import java.util.ArrayList;
-
-
 public class MainActivity extends AppCompatActivity {
 
+    //a number for the app to request using camera
     private static final int CAMERA_REQUEST_CODE = 107;
 
+    //an scanner object which is instantiated by using a third-party library
     private CodeScanner codeScanner;
+
+    //the view in xml file for the scanner
     private CodeScannerView csView;
+
+    //the text view under the scanner for displaying the content from the qr code
+    private TextView tvScanContent;
 
 
     @Override
@@ -46,32 +42,37 @@ public class MainActivity extends AppCompatActivity {
         scanCode();
     }
 
+    /**
+     * sets the common attributes for the scanner object
+     */
     private void scannerSetUp() {
         csView = findViewById(R.id.scanner_view);
         codeScanner = new CodeScanner(this, csView);
         codeScanner.setCamera(CodeScanner.CAMERA_BACK);
         codeScanner.setFormats(CodeScanner.TWO_DIMENSIONAL_FORMATS);
         codeScanner.setAutoFocusMode(AutoFocusMode.SAFE);
-        codeScanner.setScanMode(ScanMode.SINGLE);
+        codeScanner.setScanMode(ScanMode.CONTINUOUS);
         codeScanner.setAutoFocusEnabled(true);
         codeScanner.setFlashEnabled(false);
     }
 
 
+    /**
+     * performs the main logic of the scanner
+     */
     private void scanCode() {
         scannerSetUp();
 
+        //when the scanner is ready, the method decodes the qr code
         codeScanner.setDecodeCallback(new DecodeCallback() {
 
             @Override
             public void onDecoded(@NonNull final Result result) {
-                final TextView tvScanContent = findViewById(R.id.scanner_view);
+                tvScanContent = findViewById(R.id.textViewBarcodeContent);
 
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(getApplicationContext(), result.getText(), Toast.LENGTH_SHORT).show();
-
                         tvScanContent.setText(result.getText());
                     }
                 });
@@ -96,8 +97,6 @@ public class MainActivity extends AppCompatActivity {
                 });
             }
         });
-
-
     }
 
     @Override
@@ -112,6 +111,9 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
     }
 
+    /**
+     * sets the permission for using the camera of the virtual scene
+     */
     private void setPermissions() {
         int permission = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
 
@@ -120,6 +122,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * sends a request for using the camera
+     */
     private void makeRequest() {
         String[] arr = {Manifest.permission.CAMERA};
         ActivityCompat.requestPermissions(this, arr, CAMERA_REQUEST_CODE);
