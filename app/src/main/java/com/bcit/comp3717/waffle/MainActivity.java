@@ -136,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
 
         if(requestCode == CAMERA_REQUEST_CODE) {
             if(arrInt.length > 0 && arrInt[0] != PackageManager.PERMISSION_GRANTED)
-                Toast.makeText(this, "camera permission needed.", Toast.LENGTH_LONG);
+                Toast.makeText(this, "camera permission needed.", Toast.LENGTH_LONG).show();
             }
     }
 
