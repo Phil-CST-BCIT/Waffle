@@ -5,7 +5,7 @@
     <string name="hintFirstName">First Name</string>
     <string name="hintLastName">Last Name</string>
     <string name="hintUserName">User Name</string>
-    <string name="hintPhoneNumber">Phone Number</string>
+    <string name="hintPhoneNumber">Phone Number:</string>
     <string name="btnAddCustomer">Add Customer</string>
     <string name="cust_page">Customer Information</string>
     <string name="num_in_the_queue"># in the queue</string>
@@ -26,4 +26,10 @@
     <string name="Phone">Phone: </string>
     <string name="Email_sign_in">EMAIL Sign in</string>
     <string name="title_activity_email_login">EmailLoginActivity</string>
+    <string name="cust_name">Customer Name:</string>
+    <string name="res_name">Restaurant:</string>
+    <string name="arrive_time">Arrive at:</string>
+    <string name="pick_time">PICK A TIME:</string>
+
+
 </resources>

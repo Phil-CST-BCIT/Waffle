@@ -4,10 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.budiyev.android.codescanner.AutoFocusMode;
@@ -23,6 +26,9 @@ public class MainActivity extends AppCompatActivity {
     //a number for the app to request using camera
     private static final int CAMERA_REQUEST_CODE = 107;
 
+    public static final String EXTRA_MESSAGE = "msg";
+
+
     //an scanner object which is instantiated by using a third-party library
     private CodeScanner codeScanner;
 
@@ -32,14 +38,28 @@ public class MainActivity extends AppCompatActivity {
     //the text view under the scanner for displaying the content from the qr code
     private TextView tvScanContent;
 
+    private Button submit;
+
+    private String restaurantName;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        submit = findViewById(R.id.btnSubmit);
+
         setPermissions();
+
         scanCode();
+
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                    startForm();
+            }
+        });
     }
 
     /**
@@ -73,10 +93,15 @@ public class MainActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        tvScanContent.setText(result.getText());
+                        restaurantName = result.getText();
+                        tvScanContent.setText(restaurantName);
+                        if(restaurantName != null) {
+                            submit.setEnabled(true);
+                        }
                     }
                 });
             }
+
         });
 
         csView.setOnClickListener(new View.OnClickListener() {
@@ -111,6 +136,12 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
     }
 
+    @Override
+    protected void onDestroy() {
+        codeScanner.releaseResources();
+        super.onDestroy();
+    }
+
     /**
      * sets the permission for using the camera of the virtual scene
      */
@@ -138,6 +169,12 @@ public class MainActivity extends AppCompatActivity {
             if(arrInt.length > 0 && arrInt[0] != PackageManager.PERMISSION_GRANTED)
                 Toast.makeText(this, "camera permission needed.", Toast.LENGTH_LONG).show();
             }
+    }
+
+    private void startForm() {
+        Intent intent = new Intent(MainActivity.this, CustomerFormActivity.class);
+        intent.putExtra(EXTRA_MESSAGE, restaurantName);
+        startActivity(intent);
     }
 
 }

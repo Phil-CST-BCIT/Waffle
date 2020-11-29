@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.bcit.comp3717.waffle">
-<!-- add permissions for using camera and internet -->
+    <!-- add permissions for using camera and internet -->
     <uses-permission android:name="android.permission.CAMERA" />
 
     <application
@@ -10,13 +10,15 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        >
+        android:theme="@style/AppTheme">
+        <activity android:name=".CustomerFormActivity"
+            android:parentActivityName=".MainActivity"></activity>
+
         <meta-data
             android:name="com.google.android.gms.vision.DEPENDENCIES"
             android:value="barcode" />
 
-        <activity android:name=".DatabaseConnection"></activity>
+        <activity android:name=".DatabaseConnection" />
         <activity android:name=".SuccessCustomerLoggedIn" />
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -25,8 +27,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
     </application>
 
 </manifest>
