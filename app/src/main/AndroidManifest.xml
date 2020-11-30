@@ -19,7 +19,6 @@
             android:value="barcode" />
 
         <activity android:name=".DatabaseConnection" />
-        <activity android:name=".SuccessCustomerLoggedIn" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -2,21 +2,20 @@ package com.bcit.comp3717.waffle;
 
 public class Customer {
     String customerId;
-    String customerFirstName;
-    String customerLastName;
+    String customerName;
     String customerPhoneNumber;
-    String customerUserName;
+    String arriveTime;
+    String restaurantName;
 
     public Customer() {}
 
-    public Customer(String customerId, String customerFirstName,
-                   String customerLastName, String customerPhoneNumber, String customerUserName) {
+    public Customer(String customerId, String customerName, String customerPhoneNumber, String arriveTime, String restaurantName) {
 
         this.customerId = customerId;
-        this.customerFirstName = customerFirstName;
-        this.customerLastName = customerLastName;
+        this.customerName = customerName;
         this.customerPhoneNumber = customerPhoneNumber;
-        this.customerUserName = customerUserName;
+        this.arriveTime = arriveTime;
+        this.restaurantName = restaurantName;
     }
 
     public String getCustomerId() { return customerId; }
@@ -25,26 +24,15 @@ public class Customer {
         this.customerId = customerId;
     }
 
-    public String getCustomerFirstName() {return customerFirstName;}
+    public String getCustomerName() {return customerName;}
 
-    public void setCustomerFirstName(String customerFirstName) {
-        this.customerFirstName = customerFirstName;
-    }
-
-    public String getCustomerLastName() {return customerLastName;}
-
-    public void setCustomerLastName(String customerLastName) {
-        this.customerLastName = customerLastName;
-    }
     public String getCustomerPhoneNumber() {return customerPhoneNumber;}
 
     public void setCustomerPhoneNumber(String customerPhoneNumber) {
         this.customerPhoneNumber = customerPhoneNumber;
     }
 
-    public String getCustomerUserName() {return customerUserName;}
+    public String getArriveTime() {return arriveTime;}
 
-    public void setCustomerUserName(String customerUserName) {
-        this.customerUserName = customerUserName;
-    }
+    public String getRestaurantName() {return restaurantName;}
 }
