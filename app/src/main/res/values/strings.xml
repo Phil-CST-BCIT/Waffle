@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Waffle</string>
-    <string name="home">Home Page</string>
+    <string name="home">Skip The Contact</string>
 
     <string name="hintFirstName">First Name</string>
     <string name="hintLastName">Last Name</string>
@@ -31,5 +31,9 @@
     <string name="arrive_time">Arrive at:</string>
     <string name="pick_time">PICK A TIME:</string>
     <string name="submit_form">SUBMIT</string>
+    <string name="submit"> Submit</string>
+    <string name="clickBtn"> Click</string>
+
+
 
 </resources>
