@@ -30,6 +30,7 @@
     <string name="res_name">Restaurant:</string>
     <string name="arrive_time">Arrive at:</string>
     <string name="pick_time">PICK A TIME:</string>
+    <string name="submit"> Submit</string>
 
 
 </resources>
