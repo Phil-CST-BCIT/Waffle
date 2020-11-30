@@ -98,8 +98,8 @@
         android:layout_marginStart="@dimen/tv_general_margin"
         android:layout_marginTop="@dimen/form_item_gap"
         android:layout_marginBottom="@dimen/form_item_gap"
-        android:gravity="start"
         android:text=""
+        android:textAlignment="center"
         android:layout_columnWeight="2"
         android:textSize="@dimen/form_font_size"
         android:textStyle="bold"/>

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,18 +17,26 @@ import java.util.Calendar;
 
 public class CustomerFormActivity extends AppCompatActivity {
 
+    TextView tvRestaurant;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_form);
 
+        tvRestaurant = findViewById(R.id.textViewRestaurant);
+
         Intent intent = getIntent();
-//        String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
+        String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
+
+        tvRestaurant.setText(message);
 
     }
 
     public static class TimePickerFragment extends DialogFragment
             implements TimePickerDialog.OnTimeSetListener {
+
+        final Calendar myCalender = Calendar.getInstance();
 
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
