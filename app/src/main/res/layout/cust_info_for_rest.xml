@@ -53,9 +53,8 @@
                 android:id="@+id/editTextTextPersonName"
                 android:layout_width="115dp"
                 android:layout_height="46dp"
-                android:ems="10"
-                android:inputType="textPersonName"
                 android:layout_marginLeft="50px"
+                android:inputType="textPersonName"
                 android:text="Minutes" />
         </LinearLayout>
 
