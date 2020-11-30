@@ -136,7 +136,6 @@
         android:layout_columnWeight="1"
         android:background="@color/btnColor"
         android:textColor="@color/textColor"/>
-
     <Button
         android:id="@+id/btnSubForm"
         android:layout_width="wrap_content"
@@ -146,4 +145,5 @@
         android:background="@color/btnColor"
         android:textColor="@color/textColor"
         android:layout_gravity="center_horizontal"
-        android:text="@string/submit" />
+        android:text="@string/submit"/>
+</GridLayout>
